@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Que Gato Sou Eu?</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ffcc00;
+            padding: 20px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .gato img {
+            margin-top: 10%;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in;
+            margin-top: 10px;
+        }
+
+        .tamanhagato{
+            width: 30%;
+            height: 30%;
+        }
+
+        footer {
+            background-color: #ffcc00;
+            padding: 10px;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            animation: zoomIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .floating-img {
+            position: absolute;
+            animation: float 4s infinite ease-in-out;
+            width: 100px;
+            height: auto;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Que Gato Sou Eu?</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 form-container">
+                    <form action="/" method="POST">
+                        <label class="form-label">Informe seu nome</label>
+                        <input type="text" name="nome" class="form-control mb-3" required>
+                        <button type="submit" class="btn btn-warning w-100">Descobrir</button>
+                    </form>
+                </div>
+            </div>
+            <div class="gato">
+                {% if not url_img %}
+                <img src="static/3.png" class="tamanhagato" alt="Imagem do gato">
+                {% else %}
+                <img src="{{ url_img }}" class="tamanhagato" alt="Imagem do gato">
+                <p class="fs-4 mt-2">{{ nome }}</p>
+                {% endif %}
+                {% if erro %}
+                <p class="text-danger mt-2">{{ erro }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Desenvolvido por um gato, Miau! 🐱</p>
+    </footer>
+    <!-- Floating Images -->
+    <img class="floating-img" src="static/2.png" style="top:10%; left:10%;" alt="Imagem decorativa de gato">
+    <img class="floating-img" src="static/1.png" style="top:50%; left:80%;" alt="Imagem decorativa de patinha de gato">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.querySelector("input[name='nome']");
+            const button = document.querySelector("button");
+            input.addEventListener("input", function () {
+                button.disabled = input.value.trim() === "";
+            });
+        });
+    </script>
+</body>
+
+</html>
